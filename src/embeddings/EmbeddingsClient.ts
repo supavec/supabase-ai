@@ -21,9 +21,9 @@ export class EmbeddingsClient {
   constructor(config: EmbeddingsClientConfig) {
     this.supabase = config.supabaseClient;
     this.provider = config.provider;
-    this.defaultTable = config.defaultTable || "documents";
-    this.defaultChunkSize = config.defaultChunkSize || 1000;
-    this.defaultThreshold = config.defaultThreshold || 0.8;
+    this.defaultTable = config.table || "documents";
+    this.defaultChunkSize = config.chunkSize || 1000;
+    this.defaultThreshold = config.threshold || 0.8;
   }
 
   async create(

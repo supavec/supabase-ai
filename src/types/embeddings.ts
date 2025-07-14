@@ -62,7 +62,7 @@ export interface EmbeddingProvider {
 export interface EmbeddingsClientConfig {
   supabaseClient: SupabaseClient
   provider: EmbeddingProvider
-  defaultTable?: string
-  defaultChunkSize?: number
-  defaultThreshold?: number
+  table?: string
+  chunkSize?: number
+  threshold?: number
 }

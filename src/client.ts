@@ -29,9 +29,9 @@ export class SupabaseAI {
     this.embeddings = new EmbeddingsClient({
       supabaseClient,
       provider,
-      defaultTable: this.embeddingsConfig.table,
-      defaultChunkSize: this.embeddingsConfig.chunkSize,
-      defaultThreshold: this.embeddingsConfig.threshold,
+      table: this.embeddingsConfig.table,
+      chunkSize: this.embeddingsConfig.chunkSize,
+      threshold: this.embeddingsConfig.threshold,
     });
   }
 
