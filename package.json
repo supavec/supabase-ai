@@ -1,0 +1,43 @@
+{
+  "name": "@supavec/supabase-ai",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for Supabase AI/RAG operations with pgvector",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "supabase",
+    "ai",
+    "rag",
+    "embeddings",
+    "pgvector",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.13",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^9.31.0",
+    "jest": "^30.0.4",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "openai": "^5.9.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
+}
