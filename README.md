@@ -170,6 +170,16 @@ await ai.embeddings.store([...], {
 })
 ```
 
+**Store Options:**
+- `table?`: Table name (optional if embeddings.table is set)
+- `generateId?`: Generate IDs using SDK (default: false, lets database auto-generate)
+- `batchSize?`: Number of records to insert per batch (default: 100)
+
+**ID Handling:**
+- By default, the SDK lets your database auto-generate IDs (recommended for UUID primary keys)
+- If your data includes `id` fields, they will be used
+- Set `generateId: true` to force SDK-generated IDs when no ID is provided
+
 **Note**: Content should be pre-chunked using your preferred method (LangChain, etc.) before passing to the store method.
 
 ##### `search(query, options)`
@@ -249,6 +259,12 @@ const documents = [
   { content: 'Document 1 chunk 2', metadata: { type: 'article', chunk: 2 } },
   { content: 'Document 2 chunk 1', metadata: { type: 'blog', chunk: 1 } },
   // ... more pre-chunked documents
+]
+
+// With custom IDs
+const documentsWithIds = [
+  { id: 'doc1-chunk1', content: 'Document 1 chunk 1', metadata: { type: 'article' } },
+  { id: 'doc1-chunk2', content: 'Document 1 chunk 2', metadata: { type: 'article' } },
 ]
 
 // Using default table from config

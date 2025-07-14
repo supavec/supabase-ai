@@ -41,15 +41,14 @@ export class EmbeddingsClient {
     }
 
     const batchSize = options?.batchSize || 100;
-    const generateIds = options?.generateId !== false;
+    const generateIds = options?.generateId === true;
 
     const processedData: any[] = [];
 
     for (const item of data) {
       const embeddings = await this.create(item.content);
 
-      processedData.push({
-        id: generateIds ? item.id || generateId() : item.id,
+      const record: any = {
         content: item.content,
         embedding: embeddings[0],
         metadata: item.metadata || {},
@@ -58,7 +57,16 @@ export class EmbeddingsClient {
             ([key]) => !["content", "metadata", "id"].includes(key)
           )
         ),
-      });
+      };
+
+      // Only include id field if explicitly provided or generateIds is enabled
+      if (item.id) {
+        record.id = item.id;
+      } else if (generateIds) {
+        record.id = generateId();
+      }
+
+      processedData.push(record);
     }
 
     for (let i = 0; i < processedData.length; i += batchSize) {
