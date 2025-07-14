@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications with Supabase and pgvector. The SDK provides semantic search capabilities with OpenAI embeddings and includes comprehensive TypeScript support.
+This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications with Supabase and pgvector. The SDK provides semantic search capabilities with OpenAI embeddings, native LangChain Document support, and includes comprehensive TypeScript support.
 
 ## Key Development Commands
 
@@ -29,12 +29,13 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 
 ### Key Architecture Patterns
 - **OpenAI Integration**: Direct integration with OpenAI embeddings API
+- **LangChain Compatibility**: Native support for LangChain Document objects without conversion
 - **Nested Configuration**: Feature-specific options (embeddings config separate from core options)
 - **Error Handling**: Comprehensive error types (ValidationError, DatabaseError, etc.)
 - **Batch Processing**: Built-in support for batch operations with configurable sizes
 
 ### Data Flow
-1. Pre-chunked text input → Embeddings generation → Supabase database (with batch processing)
+1. Pre-chunked text input (native format or LangChain Documents) → Input normalization → Embeddings generation → Supabase database (with batch processing)
 2. Search query → Embedding generation → Vector similarity search → Filtered results
 
 ## Database Requirements

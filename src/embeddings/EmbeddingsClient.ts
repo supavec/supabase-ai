@@ -3,6 +3,7 @@ import type {
   EmbeddingsClientConfig,
   CreateOptions,
   StoreData,
+  StoreInput,
   StoreOptions,
   SearchOptions,
   SearchResult,
@@ -24,6 +25,19 @@ export class EmbeddingsClient {
     this.defaultThreshold = config.threshold || 0.8;
   }
 
+  private normalizeStoreInput(item: StoreInput): StoreData {
+    // Check if it's a LangChain Document (has pageContent)
+    if ('pageContent' in item) {
+      return {
+        content: item.pageContent,
+        ...(item.metadata && { metadata: item.metadata }),
+        ...(item.id && { id: item.id }),
+      };
+    }
+    // Already in StoreData format
+    return item as StoreData;
+  }
+
   async create(
     input: string | string[],
     options?: CreateOptions
@@ -31,7 +45,7 @@ export class EmbeddingsClient {
     return this.provider.createEmbedding(input, options);
   }
 
-  async store(data: StoreData[], options?: StoreOptions): Promise<void> {
+  async store(data: StoreInput[], options?: StoreOptions): Promise<void> {
     const table = options?.table || this.defaultTable;
 
     if (!table) {
@@ -46,22 +60,25 @@ export class EmbeddingsClient {
     const processedData: any[] = [];
 
     for (const item of data) {
-      const embeddings = await this.create(item.content);
+      // Normalize LangChain Document to StoreData format
+      const normalizedItem = this.normalizeStoreInput(item);
+      
+      const embeddings = await this.create(normalizedItem.content);
 
       const record: any = {
-        content: item.content,
+        content: normalizedItem.content,
         embedding: embeddings[0],
-        metadata: item.metadata || {},
+        metadata: normalizedItem.metadata || {},
         ...Object.fromEntries(
-          Object.entries(item).filter(
+          Object.entries(normalizedItem).filter(
             ([key]) => !["content", "metadata", "id"].includes(key)
           )
         ),
       };
 
       // Only include id field if explicitly provided or generateIds is enabled
-      if (item.id) {
-        record.id = item.id;
+      if (normalizedItem.id) {
+        record.id = normalizedItem.id;
       } else if (generateIds) {
         record.id = generateId();
       }

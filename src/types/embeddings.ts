@@ -23,6 +23,15 @@ export interface StoreData {
   [key: string]: any
 }
 
+// LangChain Document interface for compatibility
+export interface LangChainDocument {
+  pageContent: string
+  metadata?: Record<string, any>
+  id?: string
+}
+
+export type StoreInput = StoreData | LangChainDocument
+
 export interface StoreOptions {
   table?: string
   generateId?: boolean

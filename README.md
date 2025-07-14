@@ -180,7 +180,26 @@ await ai.embeddings.store([...], {
 - If your data includes `id` fields, they will be used
 - Set `generateId: true` to force SDK-generated IDs when no ID is provided
 
-**Note**: Content should be pre-chunked using your preferred method (LangChain, etc.) before passing to the store method.
+**LangChain Integration:**
+The store method accepts both native format and LangChain Documents directly:
+
+```typescript
+import { Document } from 'langchain/document'
+
+// LangChain Documents work directly
+const langchainDocs = [
+  new Document({ pageContent: "LangChain document content", metadata: { source: "web" } })
+]
+await ai.embeddings.store(langchainDocs)
+
+// Mixed formats also work
+await ai.embeddings.store([
+  new Document({ pageContent: "LangChain doc", metadata: { type: "langchain" } }),
+  { content: "Native format doc", metadata: { type: "native" } }
+])
+```
+
+**Note**: Content should be pre-chunked using your preferred method (LangChain text splitters, etc.) before passing to the store method.
 
 ##### `search(query, options)`
 
@@ -227,6 +246,31 @@ const score = await ai.embeddings.similarity('hello world', 'hello there')
 ```
 
 ## Advanced Usage
+
+### LangChain Integration
+
+Complete example using LangChain text splitters:
+
+```typescript
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
+import { Document } from 'langchain/document'
+
+// Split large document using LangChain
+const textSplitter = new RecursiveCharacterTextSplitter({
+  chunkSize: 1000,
+  chunkOverlap: 200,
+})
+
+const docs = await textSplitter.createDocuments([
+  'Your large document text here...',
+], [{ source: 'document.pdf', author: 'John Doe' }])
+
+// Store directly - no conversion needed
+await ai.embeddings.store(docs)
+
+// Search works the same way
+const results = await ai.embeddings.search('query about the document')
+```
 
 ### Complex Search Queries
 
