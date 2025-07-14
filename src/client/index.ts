@@ -1,1 +1,1 @@
-export * from './SupabaseAI'
+export * from "./SupabaseAI";
