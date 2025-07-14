@@ -5,7 +5,7 @@ A TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications 
 ## Features
 
 - 🔍 **Semantic Search**: Powerful vector similarity search with pgvector
-- 🤖 **Multi-Provider Support**: OpenAI embeddings with extensible provider system
+- 🤖 **OpenAI Integration**: Seamless OpenAI embeddings integration
 - 📦 **Type-Safe**: Full TypeScript support with comprehensive type definitions
 - 🚀 **Easy Integration**: Works with your existing Supabase client
 - 🔧 **Flexible Configuration**: Customizable chunk sizes, similarity thresholds, and more
@@ -99,7 +99,6 @@ const supabase = createClient(
 
 // Initialize SupabaseAI
 const ai = new SupabaseAI(supabase, {
-  provider: 'openai',
   apiKey: process.env.OPENAI_API_KEY!,
   model: 'text-embedding-3-small'
 })
@@ -136,9 +135,8 @@ const ai = new SupabaseAI(supabaseClient, options)
 
 #### Options
 
-- `provider`: `'openai' | 'anthropic' | 'custom'` - AI provider for embeddings
-- `apiKey`: `string` - API key for the provider
-- `model?`: `string` - Model name (default: 'text-embedding-3-small')
+- `apiKey`: `string` - OpenAI API key
+- `model?`: `string` - OpenAI model name (default: 'text-embedding-3-small')
 - `defaultTable?`: `string` - Default table for operations
 - `defaultChunkSize?`: `number` - Default chunk size for text processing
 - `defaultThreshold?`: `number` - Default similarity threshold
@@ -212,26 +210,6 @@ const score = await ai.embeddings.similarity('hello world', 'hello there')
 ```
 
 ## Advanced Usage
-
-### Custom Provider
-
-Create your own embedding provider:
-
-```typescript
-const customAI = SupabaseAI.createWithCustomProvider(
-  supabase,
-  async (input: string | string[]) => {
-    // Your custom embedding logic
-    return embeddings // number[][]
-  },
-  'custom-model',
-  1536, // dimensions
-  {
-    defaultTable: 'documents',
-    defaultThreshold: 0.85
-  }
-)
-```
 
 ### Complex Search Queries
 

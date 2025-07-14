@@ -1,7 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
 export interface SupabaseAIOptions {
-  provider: 'openai' | 'anthropic' | 'custom'
   apiKey: string
   model?: string
   defaultTable?: string

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications with Supabase and pgvector. The SDK provides semantic search capabilities with embeddings, supports multiple AI providers (OpenAI, with extensible provider system), and includes comprehensive TypeScript support.
+This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications with Supabase and pgvector. The SDK provides semantic search capabilities with OpenAI embeddings and includes comprehensive TypeScript support.
 
 ## Key Development Commands
 
@@ -24,11 +24,11 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 ### Core Components
 1. **SupabaseAI** (`src/client.ts`) - Main client class that orchestrates the SDK
 2. **EmbeddingsClient** (`src/embeddings/EmbeddingsClient.ts`) - Handles embedding operations and semantic search
-3. **Provider System** (`src/embeddings/providers/`) - Pluggable embedding providers (OpenAI, Custom)
+3. **OpenAI Provider** (`src/embeddings/providers/openai.ts`) - OpenAI embeddings integration
 4. **Type Definitions** (`src/types/`) - Comprehensive TypeScript types for all operations
 
 ### Key Architecture Patterns
-- **Provider Pattern**: Extensible embedding provider system allowing custom implementations
+- **OpenAI Integration**: Direct integration with OpenAI embeddings API
 - **Configuration-driven**: Options passed through constructor with sensible defaults
 - **Error Handling**: Comprehensive error types (ValidationError, DatabaseError, etc.)
 - **Batch Processing**: Built-in support for batch operations with configurable sizes

@@ -2,7 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import type { SupabaseAIOptions, EmbeddingProvider } from "./types";
 import { ConfigurationError } from "./types/errors";
 import { EmbeddingsClient } from "./embeddings";
-import { OpenAIProvider, CustomProvider } from "./embeddings/providers";
+import { OpenAIProvider } from "./embeddings/providers";
 
 export class SupabaseAI {
   public embeddings: EmbeddingsClient;
@@ -31,67 +31,18 @@ export class SupabaseAI {
   }
 
   private validateOptions(): void {
-    if (!this.options.provider) {
-      throw new ConfigurationError("Provider is required");
-    }
-
-    if (!this.options.apiKey && this.options.provider !== "custom") {
-      throw new ConfigurationError(
-        "API key is required for non-custom providers"
-      );
+    if (!this.options.apiKey) {
+      throw new ConfigurationError("API key is required");
     }
   }
 
   private createProvider(): EmbeddingProvider {
-    switch (this.options.provider) {
-      case "openai":
-        return new OpenAIProvider(this.options.apiKey, this.options.model);
-
-      case "custom":
-        throw new ConfigurationError(
-          "Custom provider requires createCustomProvider() method"
-        );
-
-      case "anthropic":
-        throw new ConfigurationError("Anthropic provider not yet implemented");
-
-      default:
-        throw new ConfigurationError(
-          `Unknown provider: ${this.options.provider}`
-        );
-    }
+    return new OpenAIProvider(this.options.apiKey, this.options.model);
   }
 
-  static createWithCustomProvider(
-    supabaseClient: SupabaseClient,
-    embedFn: (input: string | string[]) => Promise<number[][]>,
-    model: string,
-    dimensions: number,
-    options: Partial<SupabaseAIOptions> = {}
-  ): SupabaseAI {
-    const customProvider = new CustomProvider(embedFn, model, dimensions);
-
-    const instance = Object.create(SupabaseAI.prototype);
-    instance.supabaseClient = supabaseClient;
-    instance.options = { ...options, provider: "custom", apiKey: "" };
-
-    instance.embeddings = new EmbeddingsClient({
-      supabaseClient,
-      provider: customProvider,
-      ...(options.defaultTable && { defaultTable: options.defaultTable }),
-      ...(options.defaultChunkSize && {
-        defaultChunkSize: options.defaultChunkSize,
-      }),
-      ...(options.defaultThreshold && {
-        defaultThreshold: options.defaultThreshold,
-      }),
-    });
-
-    return instance;
-  }
 
   getProvider(): string {
-    return this.options.provider;
+    return "openai";
   }
 
   getModel(): string {
