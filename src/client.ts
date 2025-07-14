@@ -17,9 +17,9 @@ export class SupabaseAI {
     // Set up embeddings config with defaults
     this.embeddingsConfig = {
       model: options.embeddings?.model || 'text-embedding-3-small',
-      defaultTable: options.embeddings?.defaultTable || 'documents',
-      defaultChunkSize: options.embeddings?.defaultChunkSize || 1000,
-      defaultThreshold: options.embeddings?.defaultThreshold || 0.8,
+      table: options.embeddings?.table || 'documents',
+      chunkSize: options.embeddings?.chunkSize || 1000,
+      threshold: options.embeddings?.threshold || 0.8,
     };
 
     this.validateOptions();
@@ -29,9 +29,9 @@ export class SupabaseAI {
     this.embeddings = new EmbeddingsClient({
       supabaseClient,
       provider,
-      defaultTable: this.embeddingsConfig.defaultTable,
-      defaultChunkSize: this.embeddingsConfig.defaultChunkSize,
-      defaultThreshold: this.embeddingsConfig.defaultThreshold,
+      defaultTable: this.embeddingsConfig.table,
+      defaultChunkSize: this.embeddingsConfig.chunkSize,
+      defaultThreshold: this.embeddingsConfig.threshold,
     });
   }
 
@@ -41,16 +41,16 @@ export class SupabaseAI {
     }
 
     // Validate embeddings config values
-    if (this.embeddingsConfig.defaultChunkSize <= 0) {
-      throw new ConfigurationError("defaultChunkSize must be greater than 0");
+    if (this.embeddingsConfig.chunkSize <= 0) {
+      throw new ConfigurationError("chunkSize must be greater than 0");
     }
 
-    if (this.embeddingsConfig.defaultThreshold < 0 || this.embeddingsConfig.defaultThreshold > 1) {
-      throw new ConfigurationError("defaultThreshold must be between 0 and 1");
+    if (this.embeddingsConfig.threshold < 0 || this.embeddingsConfig.threshold > 1) {
+      throw new ConfigurationError("threshold must be between 0 and 1");
     }
 
-    if (!this.embeddingsConfig.defaultTable.trim()) {
-      throw new ConfigurationError("defaultTable cannot be empty");
+    if (!this.embeddingsConfig.table.trim()) {
+      throw new ConfigurationError("table cannot be empty");
     }
   }
 

@@ -2,9 +2,9 @@ import { SupabaseClient } from '@supabase/supabase-js'
 
 export interface EmbeddingsConfig {
   model?: string
-  defaultTable?: string
-  defaultChunkSize?: number
-  defaultThreshold?: number
+  table?: string
+  chunkSize?: number
+  threshold?: number
 }
 
 export interface SupabaseAIOptions {

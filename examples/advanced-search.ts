@@ -10,9 +10,9 @@ const ai = new SupabaseAI(supabase, {
   apiKey: process.env.OPENAI_API_KEY!,
   embeddings: {
     model: 'text-embedding-3-small',
-    defaultTable: 'documents',
-    defaultThreshold: 0.8,
-    defaultChunkSize: 1000
+    table: 'documents',
+    threshold: 0.8,
+    chunkSize: 1000
   }
 })
 

@@ -102,9 +102,9 @@ const ai = new SupabaseAI(supabase, {
   apiKey: process.env.OPENAI_API_KEY!,
   embeddings: {
     model: 'text-embedding-3-small',
-    defaultTable: 'documents',
-    defaultThreshold: 0.8,
-    defaultChunkSize: 1000
+    table: 'documents',
+    threshold: 0.8,
+    chunkSize: 1000
   }
 })
 
@@ -143,9 +143,9 @@ const ai = new SupabaseAI(supabaseClient, options)
 - `apiKey`: `string` - OpenAI API key
 - `embeddings?`: `object` - Embeddings configuration
   - `model?`: `string` - OpenAI model name (default: 'text-embedding-3-small')
-  - `defaultTable?`: `string` - Default table for operations
-  - `defaultChunkSize?`: `number` - Default chunk size for text processing (default: 1000)
-  - `defaultThreshold?`: `number` - Default similarity threshold (default: 0.8)
+  - `table?`: `string` - Default table for operations
+  - `chunkSize?`: `number` - Default chunk size for text processing (default: 1000)
+  - `threshold?`: `number` - Default similarity threshold (default: 0.8)
 
 ### EmbeddingsClient
 
@@ -189,7 +189,7 @@ const results = await ai.embeddings.search('search query', {
 ```
 
 **Search Options:**
-- `table?`: Table name (optional if defaultTable is set)
+- `table?`: Table name (optional if embeddings.table is set)
 - `limit?`: Maximum results (default: 10)
 - `threshold?`: Similarity threshold (default: 0.8)
 - `filters?`: SQL-style filters for table columns
