@@ -9,8 +9,8 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 ## Key Development Commands
 
 ### Build and Development
-- `npm run build` - Compile TypeScript to JavaScript in dist/
-- `npm run dev` - Watch mode compilation with TypeScript
+- `npm run build` - Bundle TypeScript library with tsup (dual CJS/ESM output)
+- `npm run dev` - Watch mode bundling with tsup
 - `npm run lint` - Run ESLint on src/ directory
 - `npm test` - Run Jest tests
 - `npm run prepublishOnly` - Build before publishing
@@ -48,7 +48,7 @@ The SDK requires specific Supabase setup:
 ## Code Conventions
 
 - TypeScript with strict mode enabled
-- CommonJS modules (target: ES2020)
+- Dual module format: CommonJS and ESM outputs via tsup
 - ESLint with TypeScript rules
 - All exports go through index.ts files
 - Error classes extend base SupabaseAIError types
@@ -59,8 +59,9 @@ The SDK requires specific Supabase setup:
 
 - The SDK is designed as a library, not an application
 - Main entry point: `src/index.ts`
-- Built artifacts go to `dist/` directory
+- Built artifacts go to `dist/` directory (CJS: index.js, ESM: index.mjs, Types: index.d.ts)
 - Uses pnpm for package management
+- Build system: tsup for fast bundling with dual format output
 - Peer dependency on @supabase/supabase-js ^2.0.0
 - OpenAI dependency for embeddings provider
 
