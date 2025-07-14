@@ -7,7 +7,6 @@ const supabase = createClient(
 )
 
 const ai = new SupabaseAI(supabase, {
-  provider: 'openai',
   apiKey: process.env.OPENAI_API_KEY!,
   model: 'text-embedding-3-small'
 })
