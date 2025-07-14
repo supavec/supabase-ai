@@ -53,6 +53,7 @@ The SDK requires specific Supabase setup:
 - All exports go through index.ts files
 - Error classes extend base SupabaseAIError types
 - Comprehensive type definitions for all public APIs
+- **Type Imports**: Use `import type` for interfaces and type definitions, regular `import` for classes and runtime values
 
 ## Development Notes
 

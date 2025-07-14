@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { EmbeddingProvider, CreateOptions } from '../../types'
+import type { EmbeddingProvider, CreateOptions } from '../../types'
 import { EmbeddingProviderError } from '../../types/errors'
 
 export class OpenAIProvider implements EmbeddingProvider {

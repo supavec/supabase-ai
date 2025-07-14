@@ -1,5 +1,5 @@
 import { SupabaseClient } from '@supabase/supabase-js'
-import { 
+import type { 
   EmbeddingsClientConfig, 
   CreateOptions, 
   StoreData, 

@@ -1,4 +1,4 @@
-import { EmbeddingProvider, CreateOptions } from '../../types'
+import type { EmbeddingProvider, CreateOptions } from '../../types'
 
 export class CustomProvider implements EmbeddingProvider {
   private embedFn: (input: string | string[], options?: CreateOptions) => Promise<number[][]>
