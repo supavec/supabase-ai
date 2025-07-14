@@ -14,8 +14,7 @@ const ai = new SupabaseAI(supabase, {
     model: "text-embedding-3-small",
     table: "documents",
     threshold: 0.8,
-    chunkSize: 1000
-  }
+  },
 });
 
 async function basicExample() {

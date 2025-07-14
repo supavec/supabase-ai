@@ -8,7 +8,7 @@ A TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications 
 - 🤖 **OpenAI Integration**: Seamless OpenAI embeddings integration
 - 📦 **Type-Safe**: Full TypeScript support with comprehensive type definitions
 - 🚀 **Easy Integration**: Works with your existing Supabase client
-- 🔧 **Flexible Configuration**: Customizable chunk sizes, similarity thresholds, and more
+- 🔧 **Flexible Configuration**: Customizable similarity thresholds and more
 - 📊 **Metadata Filtering**: Advanced filtering with JSON metadata support
 
 ## Installation
@@ -103,12 +103,11 @@ const ai = new SupabaseAI(supabase, {
   embeddings: {
     model: 'text-embedding-3-small',
     table: 'documents',
-    threshold: 0.8,
-    chunkSize: 1000
+    threshold: 0.8
   }
 })
 
-// Store documents
+// Store documents (pre-chunked)
 await ai.embeddings.store([
   {
     content: 'The quick brown fox jumps over the lazy dog.',
@@ -144,7 +143,6 @@ const ai = new SupabaseAI(supabaseClient, options)
 - `embeddings?`: `object` - Embeddings configuration
   - `model?`: `string` - OpenAI model name (default: 'text-embedding-3-small')
   - `table?`: `string` - Default table for operations
-  - `chunkSize?`: `number` - Default chunk size for text processing (default: 1000)
   - `threshold?`: `number` - Default similarity threshold (default: 0.8)
 
 ### EmbeddingsClient
@@ -155,21 +153,21 @@ Handle embedding operations and semantic search.
 
 ##### `store(data, options)`
 
-Store documents with automatic embedding generation.
+Store documents with automatic embedding generation. Each item in the data array should represent a single, pre-chunked piece of content.
 
 ```typescript
 await ai.embeddings.store([
   {
-    content: 'Document text content',
+    content: 'Document text content (pre-chunked)',
     metadata: { title: 'Document Title', category: 'tech' },
     user_id: 'user123'
   }
 ], {
-  table: 'documents',
-  chunkSize: 1000,
-  overlap: 100
+  table: 'documents'
 })
 ```
+
+**Note**: Content should be pre-chunked using your preferred method (LangChain, etc.) before passing to the store method.
 
 ##### `search(query, options)`
 
@@ -242,17 +240,17 @@ const results = await ai.embeddings.search('machine learning concepts', {
 ### Batch Operations
 
 ```typescript
+// Pre-chunk your documents using your preferred method
 const documents = [
-  { content: 'Document 1', metadata: { type: 'article' } },
-  { content: 'Document 2', metadata: { type: 'blog' } },
-  // ... more documents
+  { content: 'Document 1 chunk 1', metadata: { type: 'article', chunk: 1 } },
+  { content: 'Document 1 chunk 2', metadata: { type: 'article', chunk: 2 } },
+  { content: 'Document 2 chunk 1', metadata: { type: 'blog', chunk: 1 } },
+  // ... more pre-chunked documents
 ]
 
 await ai.embeddings.store(documents, {
   table: 'documents',
-  batchSize: 50, // Process in batches of 50
-  chunkSize: 1000,
-  overlap: 100
+  batchSize: 50 // Process in batches of 50
 })
 ```
 

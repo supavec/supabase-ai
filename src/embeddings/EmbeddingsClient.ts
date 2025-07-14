@@ -9,20 +9,18 @@ import type {
   EmbeddingProvider,
 } from "../types";
 import { DatabaseError, ValidationError } from "../types/errors";
-import { chunkText, generateId, cosineSimilarity } from "./utils";
+import { generateId, cosineSimilarity } from "./utils";
 
 export class EmbeddingsClient {
   private supabase: SupabaseClient;
   private provider: EmbeddingProvider;
   private defaultTable: string;
-  private defaultChunkSize: number;
   private defaultThreshold: number;
 
   constructor(config: EmbeddingsClientConfig) {
     this.supabase = config.supabaseClient;
     this.provider = config.provider;
     this.defaultTable = config.table || "documents";
-    this.defaultChunkSize = config.chunkSize || 1000;
     this.defaultThreshold = config.threshold || 0.8;
   }
 
@@ -42,31 +40,25 @@ export class EmbeddingsClient {
       );
     }
 
-    const chunkSize = options.chunkSize || this.defaultChunkSize;
-    const overlap = options.overlap || 0;
     const batchSize = options.batchSize || 100;
     const generateIds = options.generateId !== false;
 
     const processedData: any[] = [];
 
     for (const item of data) {
-      const chunks = chunkText(item.content, chunkSize, overlap);
+      const embeddings = await this.create(item.content);
 
-      for (const chunk of chunks) {
-        const embeddings = await this.create(chunk);
-
-        processedData.push({
-          id: generateIds ? item.id || generateId() : item.id,
-          content: chunk,
-          embedding: embeddings[0],
-          metadata: item.metadata || {},
-          ...Object.fromEntries(
-            Object.entries(item).filter(
-              ([key]) => !["content", "metadata", "id"].includes(key)
-            )
-          ),
-        });
-      }
+      processedData.push({
+        id: generateIds ? item.id || generateId() : item.id,
+        content: item.content,
+        embedding: embeddings[0],
+        metadata: item.metadata || {},
+        ...Object.fromEntries(
+          Object.entries(item).filter(
+            ([key]) => !["content", "metadata", "id"].includes(key)
+          )
+        ),
+      });
     }
 
     for (let i = 0; i < processedData.length; i += batchSize) {

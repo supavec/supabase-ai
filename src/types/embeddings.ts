@@ -3,7 +3,6 @@ import { SupabaseClient } from '@supabase/supabase-js'
 export interface EmbeddingsConfig {
   model?: string
   table?: string
-  chunkSize?: number
   threshold?: number
 }
 
@@ -26,8 +25,6 @@ export interface StoreData {
 
 export interface StoreOptions {
   table?: string
-  chunkSize?: number
-  overlap?: number
   generateId?: boolean
   batchSize?: number
 }
@@ -63,6 +60,5 @@ export interface EmbeddingsClientConfig {
   supabaseClient: SupabaseClient
   provider: EmbeddingProvider
   table?: string
-  chunkSize?: number
   threshold?: number
 }

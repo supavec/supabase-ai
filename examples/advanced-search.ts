@@ -55,8 +55,7 @@ async function advancedSearchExample() {
         user_id: 'user456'
       }
     ], {
-      table: 'documents',
-      chunkSize: 500
+      table: 'documents'
     })
 
     // Advanced search with filters
