@@ -97,4 +97,8 @@ export class SupabaseAI {
   getModel(): string {
     return this.options.model || "default";
   }
+
+  getSupabaseClient(): SupabaseClient {
+    return this.supabaseClient;
+  }
 }
