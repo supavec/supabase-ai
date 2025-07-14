@@ -10,9 +10,12 @@ const supabase = createClient(
 // Initialize SupabaseAI with OpenAI
 const ai = new SupabaseAI(supabase, {
   apiKey: process.env.OPENAI_API_KEY!,
-  model: "text-embedding-3-small",
-  defaultTable: "documents",
-  defaultThreshold: 0.8,
+  embeddings: {
+    model: "text-embedding-3-small",
+    defaultTable: "documents",
+    defaultThreshold: 0.8,
+    defaultChunkSize: 1000
+  }
 });
 
 async function basicExample() {

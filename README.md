@@ -100,7 +100,12 @@ const supabase = createClient(
 // Initialize SupabaseAI
 const ai = new SupabaseAI(supabase, {
   apiKey: process.env.OPENAI_API_KEY!,
-  model: 'text-embedding-3-small'
+  embeddings: {
+    model: 'text-embedding-3-small',
+    defaultTable: 'documents',
+    defaultThreshold: 0.8,
+    defaultChunkSize: 1000
+  }
 })
 
 // Store documents
@@ -136,10 +141,11 @@ const ai = new SupabaseAI(supabaseClient, options)
 #### Options
 
 - `apiKey`: `string` - OpenAI API key
-- `model?`: `string` - OpenAI model name (default: 'text-embedding-3-small')
-- `defaultTable?`: `string` - Default table for operations
-- `defaultChunkSize?`: `number` - Default chunk size for text processing
-- `defaultThreshold?`: `number` - Default similarity threshold
+- `embeddings?`: `object` - Embeddings configuration
+  - `model?`: `string` - OpenAI model name (default: 'text-embedding-3-small')
+  - `defaultTable?`: `string` - Default table for operations
+  - `defaultChunkSize?`: `number` - Default chunk size for text processing (default: 1000)
+  - `defaultThreshold?`: `number` - Default similarity threshold (default: 0.8)
 
 ### EmbeddingsClient
 

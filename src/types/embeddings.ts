@@ -1,11 +1,15 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
-export interface SupabaseAIOptions {
-  apiKey: string
+export interface EmbeddingsConfig {
   model?: string
   defaultTable?: string
   defaultChunkSize?: number
   defaultThreshold?: number
+}
+
+export interface SupabaseAIOptions {
+  apiKey: string
+  embeddings?: EmbeddingsConfig
 }
 
 export interface CreateOptions {
