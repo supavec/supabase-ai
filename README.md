@@ -113,9 +113,7 @@ await ai.embeddings.store([
     content: 'The quick brown fox jumps over the lazy dog.',
     metadata: { title: 'Example Document', type: 'text' }
   }
-], {
-  table: 'documents'
-})
+]) // Uses default table from config
 
 // Search documents
 const results = await ai.embeddings.search('fox jumping', {
@@ -151,19 +149,24 @@ Handle embedding operations and semantic search.
 
 #### Methods
 
-##### `store(data, options)`
+##### `store(data, options?)`
 
 Store documents with automatic embedding generation. Each item in the data array should represent a single, pre-chunked piece of content.
 
 ```typescript
+// Using default table from config
 await ai.embeddings.store([
   {
     content: 'Document text content (pre-chunked)',
     metadata: { title: 'Document Title', category: 'tech' },
     user_id: 'user123'
   }
-], {
-  table: 'documents'
+])
+
+// Or specify options
+await ai.embeddings.store([...], {
+  table: 'custom_table',
+  batchSize: 50
 })
 ```
 
@@ -248,9 +251,15 @@ const documents = [
   // ... more pre-chunked documents
 ]
 
+// Using default table from config
 await ai.embeddings.store(documents, {
-  table: 'documents',
   batchSize: 50 // Process in batches of 50
+})
+
+// Or specify custom table
+await ai.embeddings.store(documents, {
+  table: 'custom_documents',
+  batchSize: 50
 })
 ```
 

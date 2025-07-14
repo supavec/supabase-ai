@@ -31,8 +31,8 @@ export class EmbeddingsClient {
     return this.provider.createEmbedding(input, options);
   }
 
-  async store(data: StoreData[], options: StoreOptions): Promise<void> {
-    const table = options.table || this.defaultTable;
+  async store(data: StoreData[], options?: StoreOptions): Promise<void> {
+    const table = options?.table || this.defaultTable;
 
     if (!table) {
       throw new ValidationError(
@@ -40,8 +40,8 @@ export class EmbeddingsClient {
       );
     }
 
-    const batchSize = options.batchSize || 100;
-    const generateIds = options.generateId !== false;
+    const batchSize = options?.batchSize || 100;
+    const generateIds = options?.generateId !== false;
 
     const processedData: any[] = [];
 

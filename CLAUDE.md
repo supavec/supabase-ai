@@ -34,7 +34,7 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 - **Batch Processing**: Built-in support for batch operations with configurable sizes
 
 ### Data Flow
-1. Text input → Chunking (configurable size/overlap) → Embeddings generation → Supabase storage
+1. Pre-chunked text input → Embeddings generation → Supabase database (with batch processing)
 2. Search query → Embedding generation → Vector similarity search → Filtered results
 
 ## Database Requirements
