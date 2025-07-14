@@ -22,7 +22,7 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 ## Architecture Overview
 
 ### Core Components
-1. **SupabaseAI** (`src/client/SupabaseAI.ts`) - Main client class that orchestrates the SDK
+1. **SupabaseAI** (`src/client.ts`) - Main client class that orchestrates the SDK
 2. **EmbeddingsClient** (`src/embeddings/EmbeddingsClient.ts`) - Handles embedding operations and semantic search
 3. **Provider System** (`src/embeddings/providers/`) - Pluggable embedding providers (OpenAI, Custom)
 4. **Type Definitions** (`src/types/`) - Comprehensive TypeScript types for all operations

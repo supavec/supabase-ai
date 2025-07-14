@@ -1,8 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import type { SupabaseAIOptions, EmbeddingProvider } from "../types";
-import { ConfigurationError } from "../types/errors";
-import { EmbeddingsClient } from "../embeddings";
-import { OpenAIProvider, CustomProvider } from "../embeddings/providers";
+import type { SupabaseAIOptions, EmbeddingProvider } from "./types";
+import { ConfigurationError } from "./types/errors";
+import { EmbeddingsClient } from "./embeddings";
+import { OpenAIProvider, CustomProvider } from "./embeddings/providers";
 
 export class SupabaseAI {
   public embeddings: EmbeddingsClient;
