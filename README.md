@@ -183,7 +183,7 @@ const results = await ai.embeddings.search('search query', {
 ```
 
 **Search Options:**
-- `table`: Required table name
+- `table?`: Table name (optional if defaultTable is set)
 - `limit?`: Maximum results (default: 10)
 - `threshold?`: Similarity threshold (default: 0.8)
 - `filters?`: SQL-style filters for table columns

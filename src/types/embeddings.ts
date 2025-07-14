@@ -21,7 +21,7 @@ export interface StoreData {
 }
 
 export interface StoreOptions {
-  table: string
+  table?: string
   chunkSize?: number
   overlap?: number
   generateId?: boolean
@@ -29,7 +29,7 @@ export interface StoreOptions {
 }
 
 export interface SearchOptions {
-  table: string
+  table?: string
   limit?: number
   threshold?: number
   filters?: Record<string, any>

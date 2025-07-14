@@ -8,7 +8,7 @@ import type {
   SearchResult,
   EmbeddingProvider,
 } from "../types";
-import { DatabaseError } from "../types/errors";
+import { DatabaseError, ValidationError } from "../types/errors";
 import { chunkText, generateId, cosineSimilarity } from "./utils";
 
 export class EmbeddingsClient {
@@ -35,6 +35,12 @@ export class EmbeddingsClient {
 
   async store(data: StoreData[], options: StoreOptions): Promise<void> {
     const table = options.table || this.defaultTable;
+
+    if (!table) {
+      throw new ValidationError(
+        "Table name is required. Provide either options.table or set defaultTable in constructor."
+      );
+    }
 
     const chunkSize = options.chunkSize || this.defaultChunkSize;
     const overlap = options.overlap || 0;
@@ -79,6 +85,12 @@ export class EmbeddingsClient {
 
   async search(query: string, options: SearchOptions): Promise<SearchResult[]> {
     const table = options.table || this.defaultTable;
+
+    if (!table) {
+      throw new ValidationError(
+        "Table name is required. Provide either options.table or set defaultTable in constructor."
+      );
+    }
 
     const queryEmbedding = await this.create(query);
     const threshold = options.threshold || this.defaultThreshold;
