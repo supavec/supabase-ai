@@ -1,0 +1,5 @@
+export { SupabaseAI } from './client'
+export { EmbeddingsClient } from './embeddings'
+export { OpenAIProvider, CustomProvider } from './embeddings/providers'
+export * from './types'
+export * from './utils'
