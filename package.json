@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "TypeScript SDK for Supabase AI/RAG operations with pgvector",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "test": "jest",
     "lint": "eslint src --ext .ts",
     "prepublishOnly": "npm run build"
@@ -30,6 +38,7 @@
     "@typescript-eslint/parser": "^8.37.0",
     "eslint": "^9.31.0",
     "jest": "^30.0.4",
+    "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
@@ -39,5 +48,6 @@
     "dist",
     "README.md",
     "LICENSE"
-  ]
+  ],
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
