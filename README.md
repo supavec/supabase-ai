@@ -186,7 +186,7 @@ await ai.embeddings.store([...], {
 The store method accepts both native format and LangChain Documents directly:
 
 ```typescript
-import { Document } from 'langchain/document'
+import { Document } from '@langchain/core/documents'
 
 // LangChain Documents work directly
 const langchainDocs = [
@@ -254,8 +254,8 @@ const score = await ai.embeddings.similarity('hello world', 'hello there')
 Complete example using LangChain text splitters:
 
 ```typescript
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
-import { Document } from 'langchain/document'
+import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters'
+import { Document } from '@langchain/core/documents'
 
 // Split large document using LangChain
 const textSplitter = new RecursiveCharacterTextSplitter({
