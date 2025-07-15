@@ -1,5 +1,9 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import type { SupabaseAIOptions, EmbeddingProvider, EmbeddingsConfig } from "./types";
+import type {
+  SupabaseAIOptions,
+  EmbeddingProvider,
+  EmbeddingsConfig,
+} from "./types";
 import { ConfigurationError } from "./types/errors";
 import { EmbeddingsClient } from "./embeddings";
 import { OpenAIProvider } from "./embeddings/providers";
@@ -16,8 +20,9 @@ export class SupabaseAI {
 
     // Set up embeddings config with defaults
     this.embeddingsConfig = {
-      model: options.embeddings?.model ?? 'text-embedding-3-small',
-      table: options.embeddings?.table ?? 'documents',
+      provider: options.embeddings?.provider ?? "openai",
+      model: options.embeddings?.model ?? "text-embedding-3-small",
+      table: options.embeddings?.table ?? "documents",
       threshold: options.embeddings?.threshold ?? 0.8,
     };
 
@@ -39,7 +44,10 @@ export class SupabaseAI {
     }
 
     // Validate embeddings config values
-    if (this.embeddingsConfig.threshold < 0 || this.embeddingsConfig.threshold > 1) {
+    if (
+      this.embeddingsConfig.threshold < 0 ||
+      this.embeddingsConfig.threshold > 1
+    ) {
       throw new ConfigurationError("threshold must be between 0 and 1");
     }
 
@@ -51,7 +59,6 @@ export class SupabaseAI {
   private createProvider(): EmbeddingProvider {
     return new OpenAIProvider(this.options.apiKey, this.embeddingsConfig.model);
   }
-
 
   getProvider(): string {
     return "openai";

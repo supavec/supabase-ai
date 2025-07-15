@@ -101,6 +101,7 @@ const supabase = createClient(
 const ai = new SupabaseAI(supabase, {
   apiKey: process.env.OPENAI_API_KEY!,
   embeddings: {
+    provider: 'openai', // Currently only OpenAI is supported
     model: 'text-embedding-3-small',
     table: 'documents',
     threshold: 0.8
@@ -139,6 +140,7 @@ const ai = new SupabaseAI(supabaseClient, options)
 
 - `apiKey`: `string` - OpenAI API key
 - `embeddings?`: `object` - Embeddings configuration
+  - `provider?`: `"openai"` - Embedding provider (currently only OpenAI is supported)
   - `model?`: `string` - OpenAI model name (default: 'text-embedding-3-small')
   - `table?`: `string` - Default table for operations
   - `threshold?`: `number` - Default similarity threshold (default: 0.8)

@@ -28,7 +28,7 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 4. **Type Definitions** (`src/types/`) - Comprehensive TypeScript types for all operations
 
 ### Key Architecture Patterns
-- **OpenAI Integration**: Direct integration with OpenAI embeddings API
+- **OpenAI Integration**: Direct integration with OpenAI embeddings API (currently the only supported provider)
 - **LangChain Compatibility**: Native support for LangChain Document objects without conversion
 - **Nested Configuration**: Feature-specific options (embeddings config separate from core options)
 - **Error Handling**: Comprehensive error types (ValidationError, DatabaseError, etc.)
