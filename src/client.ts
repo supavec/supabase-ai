@@ -61,7 +61,7 @@ export class SupabaseAI {
   }
 
   getProvider(): string {
-    return "openai";
+    return this.embeddingsConfig.provider;
   }
 
   getModel(): string {
