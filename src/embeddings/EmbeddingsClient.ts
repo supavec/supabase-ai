@@ -100,8 +100,8 @@ export class EmbeddingsClient {
     }
   }
 
-  async search(query: string, options: SearchOptions): Promise<SearchResult[]> {
-    const table = options.table || this.defaultTable;
+  async search(query: string, options?: SearchOptions): Promise<SearchResult[]> {
+    const table = options?.table || this.defaultTable;
 
     if (!table) {
       throw new ValidationError(
@@ -110,9 +110,9 @@ export class EmbeddingsClient {
     }
 
     const queryEmbedding = await this.create(query);
-    const threshold = options.threshold || this.defaultThreshold;
-    const limit = options.limit || 10;
-    const rpcFunction = options.rpc || "match_documents";
+    const threshold = options?.threshold || this.defaultThreshold;
+    const limit = options?.limit || 10;
+    const rpcFunction = options?.rpc || "match_documents";
 
     const rpcParams: any = {
       query_embedding: queryEmbedding[0],
@@ -121,11 +121,11 @@ export class EmbeddingsClient {
       table_name: table,
     };
 
-    if (options.filters) {
+    if (options?.filters) {
       rpcParams.filters = options.filters;
     }
 
-    if (options.metadata) {
+    if (options?.metadata) {
       rpcParams.metadata_filter = options.metadata;
     }
 
@@ -138,7 +138,7 @@ export class EmbeddingsClient {
 
       let results = data || [];
 
-      if (options.select) {
+      if (options?.select) {
         const selectFields = options.select.split(",").map((f) => f.trim());
         results = results.map((item: any) => {
           const filtered: any = {};
@@ -151,7 +151,7 @@ export class EmbeddingsClient {
         });
       }
 
-      if (options.orderBy && options.orderBy !== "similarity") {
+      if (options?.orderBy && options.orderBy !== "similarity") {
         results.sort((a: any, b: any) => {
           const aVal = a[options.orderBy!];
           const bVal = b[options.orderBy!];
@@ -159,7 +159,7 @@ export class EmbeddingsClient {
         });
       }
 
-      if (options.includeDistance) {
+      if (options?.includeDistance) {
         results = results.map((item: any) => ({
           ...item,
           similarity: item.similarity || 0,
