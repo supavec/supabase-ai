@@ -1,5 +1,11 @@
 # @supavec/supabase-ai
 
+[![npm version](https://img.shields.io/npm/v/@supavec/supabase-ai)](https://www.npmjs.com/package/@supavec/supabase-ai)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@supavec/supabase-ai)](https://bundlephobia.com/package/@supavec/supabase-ai)
+[![CI](https://github.com/supavec/supabase-ai/workflows/CI/badge.svg)](https://github.com/supavec/supabase-ai/actions)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/npm/l/@supavec/supabase-ai)](https://github.com/supavec/supabase-ai/blob/main/LICENSE)
+
 A TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications with Supabase and pgvector.
 
 ## Features
