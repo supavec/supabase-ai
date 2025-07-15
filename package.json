@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "jest",
+    "test": "vitest",
     "lint": "eslint src --ext .ts",
     "prepublishOnly": "npm run build"
   },
@@ -36,10 +36,11 @@
     "@types/node": "^24.0.13",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
+    "@vitest/ui": "^3.2.4",
     "eslint": "^9.31.0",
-    "jest": "^30.0.4",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "openai": "^5.9.0"
