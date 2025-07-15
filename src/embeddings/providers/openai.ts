@@ -24,7 +24,6 @@ export class OpenAIProvider implements EmbeddingProvider {
       const response = await this.client.embeddings.create({
         model,
         input: inputArray,
-        dimensions: options?.dimensions ?? this.dimensions,
       });
 
       return response.data.map((embedding) => embedding.embedding);

@@ -14,7 +14,6 @@ export interface SupabaseAIOptions {
 
 export interface CreateOptions {
   model?: string;
-  dimensions?: number;
 }
 
 export interface StoreData {
