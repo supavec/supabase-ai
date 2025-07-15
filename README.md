@@ -370,6 +370,12 @@ const results: SearchResult[] = await ai.embeddings.search('query', searchOption
 
 Contributions are welcome! Please read our contributing guidelines and submit pull requests.
 
+### Development
+
+- Run tests: `npm test`
+- Build project: `npm run build`
+- All PRs are automatically tested via GitHub Actions CI
+
 ## License
 
 MIT License - see LICENSE file for details.

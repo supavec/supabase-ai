@@ -11,13 +11,14 @@ This is @supavec/supabase-ai, a TypeScript SDK for building RAG (Retrieval-Augme
 ### Build and Development
 - `npm run build` - Bundle TypeScript library with tsup (dual CJS/ESM output)
 - `npm run dev` - Watch mode bundling with tsup
-- `npm run lint` - Run ESLint on src/ directory
-- `npm test` - Run Jest tests
+- `npm test` - Run Vitest tests
 - `npm run prepublishOnly` - Build before publishing
 
 ### Testing
-- `npm test` - Run all tests with Jest
+- `npm test` - Run all tests with Vitest
 - Tests are excluded from TypeScript compilation (see tsconfig.json)
+- Comprehensive unit tests for core components (client, embeddings)
+- GitHub Actions CI runs tests on PRs to main branch
 
 ## Architecture Overview
 
@@ -50,7 +51,6 @@ The SDK requires specific Supabase setup:
 
 - TypeScript with strict mode enabled
 - Dual module format: CommonJS and ESM outputs via tsup
-- ESLint with TypeScript rules
 - All exports go through index.ts files
 - Error classes extend base SupabaseAIError types
 - Comprehensive type definitions for all public APIs
@@ -69,7 +69,12 @@ The SDK requires specific Supabase setup:
 
 ## Testing Strategy
 
-- Jest for unit testing
-- Test files excluded from build output
-- Focus on provider implementations and client functionality
-- Mock Supabase client for testing
+- Vitest for unit testing with fast execution
+- Test files excluded from build output  
+- Comprehensive test coverage for core components:
+  - SupabaseAI client class (constructor, getters, validation)
+  - EmbeddingsClient (store, search, similarity methods)
+  - Input normalization (LangChain Document support)
+  - Error handling and edge cases
+- Mock Supabase client and embedding providers for testing
+- GitHub Actions CI automatically runs tests on PRs to main branch
