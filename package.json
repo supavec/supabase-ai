@@ -27,7 +27,7 @@
     "pgvector",
     "typescript"
   ],
-  "author": "",
+  "author": "taishikato",
   "license": "MIT",
   "peerDependencies": {
     "@supabase/supabase-js": "^2.0.0"
