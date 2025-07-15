@@ -1,3 +1,3 @@
-export * from './EmbeddingsClient'
-export * from './providers'
-export * from './utils'
+export * from "./EmbeddingsClient";
+export * from "./providers";
+export * from "./utils";

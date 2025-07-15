@@ -27,7 +27,7 @@ export class EmbeddingsClient {
 
   private normalizeStoreInput(item: StoreInput): StoreData {
     // Check if it's a LangChain Document (has pageContent)
-    if ('pageContent' in item) {
+    if ("pageContent" in item) {
       return {
         content: item.pageContent,
         ...(item.metadata && { metadata: item.metadata }),
@@ -62,7 +62,7 @@ export class EmbeddingsClient {
     for (const item of data) {
       // Normalize LangChain Document to StoreData format
       const normalizedItem = this.normalizeStoreInput(item);
-      
+
       const embeddings = await this.create(normalizedItem.content);
 
       const record: any = {
@@ -100,7 +100,10 @@ export class EmbeddingsClient {
     }
   }
 
-  async search(query: string, options?: SearchOptions): Promise<SearchResult[]> {
+  async search(
+    query: string,
+    options?: SearchOptions
+  ): Promise<SearchResult[]> {
     const table = options?.table ?? this.defaultTable;
 
     if (!table) {
