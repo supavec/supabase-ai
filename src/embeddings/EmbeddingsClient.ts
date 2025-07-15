@@ -21,8 +21,8 @@ export class EmbeddingsClient {
   constructor(config: EmbeddingsClientConfig) {
     this.supabase = config.supabaseClient;
     this.provider = config.provider;
-    this.defaultTable = config.table || "documents";
-    this.defaultThreshold = config.threshold || 0.8;
+    this.defaultTable = config.table ?? "documents";
+    this.defaultThreshold = config.threshold ?? 0.8;
   }
 
   private normalizeStoreInput(item: StoreInput): StoreData {
@@ -46,7 +46,7 @@ export class EmbeddingsClient {
   }
 
   async store(data: StoreInput[], options?: StoreOptions): Promise<void> {
-    const table = options?.table || this.defaultTable;
+    const table = options?.table ?? this.defaultTable;
 
     if (!table) {
       throw new ValidationError(
@@ -54,7 +54,7 @@ export class EmbeddingsClient {
       );
     }
 
-    const batchSize = options?.batchSize || 100;
+    const batchSize = options?.batchSize ?? 100;
     const generateIds = options?.generateId === true;
 
     const processedData: any[] = [];
@@ -68,7 +68,7 @@ export class EmbeddingsClient {
       const record: any = {
         content: normalizedItem.content,
         embedding: embeddings[0],
-        metadata: normalizedItem.metadata || {},
+        metadata: normalizedItem.metadata ?? {},
         ...Object.fromEntries(
           Object.entries(normalizedItem).filter(
             ([key]) => !["content", "metadata", "id"].includes(key)
@@ -101,7 +101,7 @@ export class EmbeddingsClient {
   }
 
   async search(query: string, options?: SearchOptions): Promise<SearchResult[]> {
-    const table = options?.table || this.defaultTable;
+    const table = options?.table ?? this.defaultTable;
 
     if (!table) {
       throw new ValidationError(
@@ -110,9 +110,9 @@ export class EmbeddingsClient {
     }
 
     const queryEmbedding = await this.create(query);
-    const threshold = options?.threshold || this.defaultThreshold;
-    const limit = options?.limit || 10;
-    const rpcFunction = options?.rpc || "match_documents";
+    const threshold = options?.threshold ?? this.defaultThreshold;
+    const limit = options?.limit ?? 10;
+    const rpcFunction = options?.rpc ?? "match_documents";
 
     const rpcParams: any = {
       query_embedding: queryEmbedding[0],
@@ -136,7 +136,7 @@ export class EmbeddingsClient {
         throw new DatabaseError(`Search failed: ${error.message}`, error);
       }
 
-      let results = data || [];
+      let results = data ?? [];
 
       if (options?.select) {
         const selectFields = options.select.split(",").map((f) => f.trim());
@@ -162,7 +162,7 @@ export class EmbeddingsClient {
       if (options?.includeDistance) {
         results = results.map((item: any) => ({
           ...item,
-          similarity: item.similarity || 0,
+          similarity: item.similarity ?? 0,
         }));
       }
 

@@ -16,9 +16,9 @@ export class SupabaseAI {
 
     // Set up embeddings config with defaults
     this.embeddingsConfig = {
-      model: options.embeddings?.model || 'text-embedding-3-small',
-      table: options.embeddings?.table || 'documents',
-      threshold: options.embeddings?.threshold || 0.8,
+      model: options.embeddings?.model ?? 'text-embedding-3-small',
+      table: options.embeddings?.table ?? 'documents',
+      threshold: options.embeddings?.threshold ?? 0.8,
     };
 
     this.validateOptions();

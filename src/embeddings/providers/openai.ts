@@ -15,13 +15,13 @@ export class OpenAIProvider implements EmbeddingProvider {
 
   async createEmbedding(input: string | string[], options?: CreateOptions): Promise<number[][]> {
     try {
-      const model = options?.model || this.model
+      const model = options?.model ?? this.model
       const inputArray = Array.isArray(input) ? input : [input]
 
       const response = await this.client.embeddings.create({
         model,
         input: inputArray,
-        dimensions: options?.dimensions || this.dimensions
+        dimensions: options?.dimensions ?? this.dimensions
       })
 
       return response.data.map(embedding => embedding.embedding)

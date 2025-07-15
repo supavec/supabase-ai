@@ -55,6 +55,7 @@ The SDK requires specific Supabase setup:
 - Error classes extend base SupabaseAIError types
 - Comprehensive type definitions for all public APIs
 - **Type Imports**: Use `import type` for interfaces and type definitions, regular `import` for classes and runtime values
+- **Nullish Coalescing**: Always use nullish coalescing operator (`??`) instead of logical OR (`||`) for default values to ensure only `null` and `undefined` trigger fallbacks
 
 ## Development Notes
 
