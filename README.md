@@ -23,8 +23,6 @@ A TypeScript SDK for building RAG (Retrieval-Augmented Generation) applications 
 npm install @supavec/supabase-ai
 ```
 
-The package includes both CommonJS and ES module builds, with full TypeScript support.
-
 ## Prerequisites
 
 Before using this SDK, you need:
